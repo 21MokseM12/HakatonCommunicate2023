@@ -1,17 +1,13 @@
 package org.spring.mvcapp;
 
 import config.DataPreparation;
-
-import java.io.IOException;
-
-/**
- * Hello world!
- *
- */
+import service.DaDataAPIService;
 
 public class App{
     public static void main( String[] args ) {
         DataPreparation.setParameters();
+        DaDataAPIService daDataAPIService = new DaDataAPIService();
+        daDataAPIService.getAdress();
     }
 
 }
