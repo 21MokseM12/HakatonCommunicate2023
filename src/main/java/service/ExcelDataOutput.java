@@ -63,14 +63,14 @@ public class ExcelDataOutput {
             cell.setCellValue(house);
             numberOfRecords++;
         }
-        public void save() throws FileNotFoundException {
+        public String save() throws FileNotFoundException {
             File file = new File(System.getProperty("user.dir"));
             try{
                 FileOutputStream outFile = new FileOutputStream(file+"\\Addresses.xlx");
                 workbook.write(outFile);
-                System.out.println("Saved " + file+"\\Addresses.xlx");
+                return "Saved " + file+"\\Addresses.xlx";
             } catch (FileNotFoundException e){
-                System.out.println("Something went wrong");
+                return "Something went wrong";
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
