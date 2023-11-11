@@ -10,6 +10,8 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
+import static service.ParserDadata.parseInformation;
+
 public class ApiDadata {
     public static void getAddress(double latitude, double longitude, int radius_meters) {
         try {
@@ -45,7 +47,8 @@ public class ApiDadata {
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
             // Выводим результат
-            System.out.println(response.body());
+            parseInformation(response);
+          //  System.out.println(response.body());
 
         } catch (Exception e) {
             e.printStackTrace();
