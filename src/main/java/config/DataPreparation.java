@@ -1,4 +1,5 @@
 package config;
+import java.util.Locale;
 import java.util.Scanner;
 import java.util.InputMismatchException;
 final public class  DataPreparation {
@@ -7,7 +8,7 @@ final public class  DataPreparation {
     public static double lon;
     public static int radius_meters;
     public static final String API_KEY = "e0653b95af4751561059fedf25757f425fc507a4";
-    public static final String API_SECRET_KEY = "eb189f423a6fdba7a381430d72ce86205d07a305";;
+    //  public static final String API_SECRET_KEY = "eb189f423a6fdba7a381430d72ce86205d07a305";;
 
         private DataPreparation(){}
         public static DataPreparation getInstance(){
@@ -17,13 +18,13 @@ final public class  DataPreparation {
             return instance;
         }
         public static void setParameters() {
-            Scanner in = new Scanner(System.in);
+            Scanner in = new Scanner(System.in).useLocale(Locale.US);;
             double ln, lt; int r;
             while (true) {
                 try {
                     System.out.print("Введите значение широты: ");
                     lt = in.nextDouble();
-                    if (lt < -90 || lt > 90) throw new InputMismatchException();
+                    if (lt < -90.0 || lt > 90.0) throw new InputMismatchException();
                     lat = lt;
                     break;
                 } catch (InputMismatchException e) {
@@ -39,7 +40,7 @@ final public class  DataPreparation {
                 try{
                     System.out.print("Введите значение долготы: ");
                     ln = in.nextDouble();
-                    if (ln < -180 || ln > 180) throw new InputMismatchException();
+                    if (ln < -180.0 || ln > 180.0) throw new InputMismatchException();
                     lon = ln;
                     break;
                 } catch (InputMismatchException e) {
