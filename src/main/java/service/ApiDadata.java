@@ -48,7 +48,7 @@ public class ApiDadata {
 
             // Выводим результат
             parseInformation(response);
-          //  System.out.println(response.body());
+
 
         } catch (Exception e) {
             e.printStackTrace();

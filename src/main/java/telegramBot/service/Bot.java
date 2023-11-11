@@ -2,7 +2,6 @@ package telegramBot.service;
 
 import config.DataPreparation;
 import lombok.extern.slf4j.Slf4j;
-import org.application.App;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.commands.SetMyCommands;
@@ -63,7 +62,7 @@ public class Bot extends TelegramLongPollingBot {
                     if (DataPreparation.validateLat(coordinates[0]) == 1 && DataPreparation.validateLon(coordinates[1]) == 1 &&
                     DataPreparation.validateRadiusMeters(coordinates[2]) == 1){
                         ApiDadata.getAddress(Double.parseDouble(coordinates[0]), Double.parseDouble(coordinates[1]), Integer.parseInt(coordinates[2]));
-                        String pathFile = System.getProperty("user.dir")+"\\Addresses.xlx";
+                        String pathFile = System.getProperty("user.dir")+"\\Addresses.xls";
                         File outFile = new File(pathFile);
                         if (outFile.exists()){
                             sendFile(chatId, pathFile);

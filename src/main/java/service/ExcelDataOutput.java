@@ -66,7 +66,7 @@ public class ExcelDataOutput {
         public String save() throws FileNotFoundException {
             File file = new File(System.getProperty("user.dir"));
             try{
-                FileOutputStream outFile = new FileOutputStream(file+"\\Addresses.xlx");
+                FileOutputStream outFile = new FileOutputStream(file+"\\Addresses.xls");
                 workbook.write(outFile);
                 return "Saved " + file+"\\Addresses.xlx";
             } catch (FileNotFoundException e){
