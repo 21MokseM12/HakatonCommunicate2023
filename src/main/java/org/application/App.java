@@ -2,6 +2,7 @@ package org.application;
 
 import config.DataPreparation;
 import service.ApiDadata;
+import service.ApiVK;
 
 public class App{
     public static void main( String[] args ){
@@ -11,5 +12,6 @@ public class App{
 //        System.out.println(DataPreparation.validateLat("44.4dfgrfgrgrfgrdgsrgsrg"));
 //        System.out.println(DataPreparation.validateLon(""));
 //        System.out.println(DataPreparation.validateRadiusMeters("1000"));
+        ApiVK.getAddress();
     }
 }
