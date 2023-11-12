@@ -4,6 +4,8 @@ import config.DataPreparation;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -35,8 +37,6 @@ public class Bot extends TelegramLongPollingBot {
         commands.add(new BotCommand("/start", "начало работы бота"));
         commands.add(new BotCommand("/russianpost", "получение адресов и индексов по координатам"));
         commands.add(new BotCommand("/vk", "получение основной информации о странице/сообществе"));
-        commands.add(new BotCommand("/telegram", "получение истории сообщений"));
-
         try {
             this.execute(new SetMyCommands(commands, new BotCommandScopeDefault(), (String)null));
         } catch (TelegramApiException var4) {
@@ -93,7 +93,15 @@ public class Bot extends TelegramLongPollingBot {
                 }
             } else if (vkflag && variant != 0) {
                 botMessageFlag = true;
-                ApiVK.getAddress(message, variant);
+                String[] answer = ApiVK.getAddress(message, variant);
+                if (Objects.equals(answer[0], "Некорректная ссылка")) sendMessage(answer[0], chatId);
+                else {
+                    if (variant == 1) {
+                        sendMessage("Название сообщества: " + answer[0] + "\nОписание сообщества: " + answer[1] + "\nКоличество участников: " + answer[2], chatId);
+                    } else if (variant == 2) {
+                        sendMessage("Имя: " + answer[0] + "\nФамилия: " + answer[1] + "\nГород: " + answer[2], chatId);
+                    }
+                }
                 variant = 0;
                 vkflag = false;
             } else {
@@ -113,19 +121,6 @@ public class Bot extends TelegramLongPollingBot {
                         if (!vkflag && !postflag) {
                             this.sendMessage("Какую информацию вы хотите получить?\n1)Про паблик\n2)Про аккаунт\nВведите цифру", chatId);
                             vkflag = true;
-                        }
-                        break;
-                    case "/telegram":
-                        this.sendMessage("Перейдите по ссылке для этого: ", chatId);
-
-                        try {
-                            String scriptPath = System.getProperty("user.dir") + "\\main.exe";
-                            ProcessBuilder processBuilder = new ProcessBuilder(new String[]{scriptPath});
-                            Process process = processBuilder.start();
-                            int exitCode = process.waitFor();
-                            log.info("Python script execution completed with exit code: " + exitCode);
-                        } catch (Exception var11) {
-                            log.error("main.exe was failed");
                         }
                         break;
                     default:
