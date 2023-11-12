@@ -12,6 +12,7 @@ public class App{
 //        System.out.println(DataPreparation.validateLat("44.4dfgrfgrgrfgrdgsrgsrg"));
 //        System.out.println(DataPreparation.validateLon(""));
 //        System.out.println(DataPreparation.validateRadiusMeters("1000"));
+
         ApiVK.getAddress();
     }
 }

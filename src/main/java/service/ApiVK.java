@@ -9,8 +9,8 @@ import static service.ParserVK.parseInformationVKClient;
 import static service.ParserVK.parseInformationVKPublic;
 
 public class ApiVK {
-    public static void getAddress() {
-
+    public static String[] getAddress() {
+        String[] array1 = new String[3];
         String apiUrl = null;
         int variant = 0;
 
@@ -56,13 +56,14 @@ public class ApiVK {
 
             // Выводим результат
             if (variant == 1){
-                parseInformationVKPublic(response);
+                array1 = parseInformationVKPublic(response);
             }else if (variant == 2){
-                parseInformationVKClient(response);
+                array1 = parseInformationVKClient(response);
             }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return array1;
     }
 }

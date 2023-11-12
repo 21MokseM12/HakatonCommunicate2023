@@ -6,7 +6,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.net.http.HttpResponse;
 
 public class ParserVK {
-    public static void parseInformationVKClient(HttpResponse<String> response) {
+    public static String[] parseInformationVKClient(HttpResponse<String> response) {
+        String[] array = new String[3];
         try {
             // Создаем ObjectMapper, который поможет нам работать с JSON
             ObjectMapper objectMapper = new ObjectMapper();
@@ -21,17 +22,28 @@ public class ParserVK {
           //  String birthDate = jsonNode.get("response").get(0).get("bdate").asText();
 
             // Выводим полученные данные
-            System.out.println("Имя: " + firstName);
-            System.out.println("Фамилия: " + lastName);
-            System.out.println("Город: " + city);
+//            System.out.println("Имя: " + firstName);
+//            System.out.println("Фамилия: " + lastName);
+//            System.out.println("Город: " + city);
           //  System.out.println("Дата рождения: " + birthDate);
+            array[0] = firstName;
+            array[1] = lastName;
+            array[2] = city;
 
-        } catch (Exception e) {
+            return array;
+
+        } catch (NullPointerException e){
+            array[0] = "Некорректная ссылка";
+            return array;
+        }
+        catch (Exception e) {
             e.printStackTrace();
+            return array;
         }
     }
 
-    public static void parseInformationVKPublic(HttpResponse<String> response){
+    public static String[] parseInformationVKPublic(HttpResponse<String> response){
+        String[] array = new String[3];
         try {
             ObjectMapper objectMapper = new ObjectMapper();
 
@@ -47,12 +59,25 @@ public class ParserVK {
             if (groupDescription.equals("")){
                 groupDescription = "нет описания";
             }
-            System.out.println("Название сообщества: " + groupName);
-            System.out.println("Описание сообщества: " + groupDescription);
-            System.out.println("Количество участников: " + membersCount);
 
-        } catch (Exception e) {
+
+            array[0] = groupName;
+            array[1] = groupDescription;
+            array[2] = Integer.toString(membersCount);
+
+            return array;
+
+//            System.out.println("Название сообщества: " + groupName);
+//            System.out.println("Описание сообщества: " + groupDescription);
+//            System.out.println("Количество участников: " + membersCount);
+
+        } catch (NullPointerException e){
+            array[0] = "Некорректная ссылка";
+            return array;
+        }
+        catch (Exception e) {
             e.printStackTrace();
+            return array;
         }
     }
 }
